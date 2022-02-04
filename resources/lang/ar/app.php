@@ -9,7 +9,7 @@ return [
     'Add'               => 'أضافة ',
     'Edit'              => 'تعديل ',
     'Delete'            => 'حذف ',
-    'Actions'           => 'المحتوي ',
+    'Actions'           => 'الاجراءات ',
     'Posts Application' => 'ادارة المنشورات ',
     'Create_new_post'   => 'اضافة محتوي ',
     'No'                => 'مسلسل',
@@ -17,5 +17,8 @@ return [
     'AR'                => 'AR',
     'EN'                => 'EN',
     'Edit_post'         => 'تعديل المحتوي',
+    'Username'          => 'اسم المستخدم ',
+    'Login'             => ' دخول',
+    'Regisetr'          => 'تسجيل دخول ',
 
 ];

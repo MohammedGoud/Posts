@@ -1,4 +1,4 @@
-@extends('posts.layout')
+@extends('layouts.app')
 
 
 @section('content')
@@ -25,6 +25,7 @@
         <tr>
             <th>{{trans("app.No")}}</th>
             <th>{{trans('app.Title')}}</th>
+            <th>{{trans('app.Username')}}</th>
             <th>{{trans('app.Blog')}}</th>
             <th width="280px">{{trans('app.Actions')}}</th>
         </tr>
@@ -32,10 +33,15 @@
 	    <tr>
 	        <td>{{ ++$i }}</td>
 	        <td>{{ $post->title }}</td>
+            <td>{{ $post->user->name }} </td>
+
 	        <td>{{ $post->blog }}</td>
 	        <td>
                 <form action="{{ route('posts.destroy',$post->id) }}" method="POST">
-                    <a class="btn btn-primary" href="{{ route('posts.edit',$post->id) }}">{{trans('app.Edit')}}</a>
+                    @if($post->user_id == auth()->id()  )
+                     <a class="btn btn-primary" href="{{ route('posts.edit',$post->id) }}">{{trans('app.Edit')}}</a>
+                    @endif
+
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">{{trans('app.Delete')}}</button>

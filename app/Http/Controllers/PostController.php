@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddPostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('user')->get();
+        
+
         return view('posts.index', compact('posts'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -35,14 +38,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddPostRequest $request)
     {
-        request()->validate([
-            'title' => 'required',
-            'blog'  => 'required',
-        ]);
+        $post = array_merge($request->validated(),['user_id' => auth()->id()]);
 
-        Post::create($request->all());
+        Post::create($post);
 
         return redirect()->route('posts.index')
             ->with('success', 'Post created successfully.');
@@ -56,7 +56,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show', compact('Post'));
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -79,11 +79,6 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        request()->validate([
-            'title' => 'required',
-            'blog' => 'required',
-        ]);
-
         $post->update($request->all());
 
         return redirect()->route('posts.index')

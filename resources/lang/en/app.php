@@ -16,4 +16,7 @@ return [
     'AR'                => 'AR',
     'EN'                => 'EN',
     'Edit_post'         => 'Edit Post',
+    'Username'          => 'Username',
+    'Login'             => ' Login',
+    'Regisetr'          => 'Regisetr ',
 ];

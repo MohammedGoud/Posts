@@ -13,13 +13,27 @@
 
 <div class="pull-left" style="margin-bottom: 20px;">
 
-                <a class="btn" href="{{ url('posts') }}"> {{trans('app.Posts')}}</a>
-                <a class="btn" href="{{ url('users') }}"> {{trans('app.Users')}}</a>
                 @if(\Session::get('locale') == 'en' || \Session::get('locale') == '')
                                 <a class="btn" href="{{ url('locale/ar') }}"  ><i class="fa fa-language"></i> {{trans('app.AR')}}</a>
                             @else
                                 <a class="btn" href="{{ url('locale/en') }}" ><i class="fa fa-language"></i> {{trans('app.EN')}}</a>
-                        @endif    
+                        @endif
+
+
+        @auth
+        {{auth()->user()->name}}
+        <div class="text-end">
+          <a href="{{ route('logout_handle') }}" class="btn btn-outline-light me-2">Logout</a>
+        </div>
+      @endauth
+
+
+      @guest
+        <div class="text-end">
+          <a href="{{ url('login') }}" class="btn btn-outline-light me-2">Login</a>
+          <a href="{{ url('register') }}" class="btn btn-warning">Sign-up</a>
+        </div>
+      @endguest
 
             </div>
     @yield('content')
