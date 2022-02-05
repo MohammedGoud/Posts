@@ -1,46 +1,67 @@
 @extends('layouts.app')
 
 @section('content')
-    <form method="post" action="{{ route('register_handle') }}">
+<div class="row">
+        <div class="col-md-12">
+
+
+        
+    <form method="post" action="{{ route('register_handle') }}" class="form-horizontal">
 
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-        <h1 class="h3 mb-3 fw-normal">Register</h1>
-
-        <div class="form-group form-floating mb-3">
-            <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="name@example.com" required="required" autofocus>
-            <label for="floatingEmail">Email address</label>
-            @if ($errors->has('email'))
+        <div class="form-group">
+                    <label  for="email">
+                    {{trans("app.email")}}
+                    </label>
+                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="name@example.com" required="required" autofocus>
+                    @if ($errors->has('email'))
                 <span class="text-danger text-left">{{ $errors->first('email') }}</span>
-            @endif
+                 @endif
         </div>
 
-        <div class="form-group form-floating mb-3">
-            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Username" required="required" autofocus>
-            <label for="floatingName">Name</label>
-            @if ($errors->has('name'))
+
+        <div class="form-group">
+                    <label  for="name">
+                    {{trans("app.name")}}
+                    </label>
+                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="" required="required" autofocus>
+                    @if ($errors->has('name'))
                 <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-            @endif
+                 @endif
         </div>
 
-        <div class="form-group form-floating mb-3">
-            <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password" required="required">
-            <label for="floatingPassword">Password</label>
-            @if ($errors->has('password'))
-                <span class="text-danger text-left">{{ $errors->first('password') }}</span>
-            @endif
+
+
+        <div class="form-group">
+                    <label for="password">
+                    {{trans("app.password")}}
+                    </label>
+                    <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="" required="required" autofocus>
+                    @if ($errors->has('password'))
+                    <span class="text-danger text-left">{{ $errors->first('password') }}</span>
+                 @endif
         </div>
 
-        <div class="form-group form-floating mb-3">
-            <input type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm Password" required="required">
-            <label for="floatingConfirmPassword">Confirm Password</label>
-            @if ($errors->has('password_confirmation'))
+
+
+
+        <div class="form-group">
+                    <label for="password_confirmation">
+                    {{trans("app.password_confirmation")}}
+                    </label>
+                    <input type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="" required="required" autofocus>
+                    @if ($errors->has('password_confirmation'))
                 <span class="text-danger text-left">{{ $errors->first('password_confirmation') }}</span>
-            @endif
+                 @endif
         </div>
 
-        <button class="w-100 btn btn-primary" type="submit">Register</button>
-        <a class="btn" href="{{url('login')}}">Login</button>
+
+              <div class="footer">
+                   <input class="btn btn-primary" type="submit" value="{{trans('app.Register')}}"/>
+               </div>
 
     </form>
+    </div>
+    </div>
 @endsection

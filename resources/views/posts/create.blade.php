@@ -26,28 +26,29 @@
     @endif
 
 
-    <form action="{{ route('posts.store') }}" method="POST">
+    <form action="{{ route('posts.store') }}" method="POST" class="form-horizontal">
     	@csrf
 
 
-         <div class="row">
-		    <div class="col-xs-12 col-sm-12 col-md-12">
-		        <div class="form-group">
-		            <strong>{{trans('app.Title')}}:</strong>
-		            <input type="text" name="title" class="form-control" placeholder="Post Title">
-		        </div>
-		    </div>
-		    <div class="col-xs-12 col-sm-12 col-md-12">
-		        <div class="form-group">
-		            <strong>{{trans('app.Blog')}}:</strong>
-		            <textarea class="form-control" style="height:150px" name="blog" placeholder="blog"></textarea>
-		        </div>
-		    </div>
-		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-		            <button type="submit" class="btn btn-primary">{{trans('app.Add')}}</button>
-		    </div>
-		</div>
+        <div class="form-group ">
+        <label  for="title"> {{trans("app.Title")}} </label>
+        <input type="text" class="form-control" name="title" value="{{ old('title') }}" placeholder="{{trans("app.Title")}}" required="required">
+            @if ($errors->has('title'))
+                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
+            @endif
+        </div>
 
+        <div class="form-group ">
+        <label  for="title">{{trans("app.Blog")}} </label>
+            <textarea class="form-control" style="height:150px" name="blog" placeholder="blog"></textarea>
+            @if ($errors->has('blog'))
+                <span class="text-danger text-left">{{ $errors->first('blog') }}</span>
+            @endif
+        </div>
+        
+        <div class="footer">
+            <input class="btn btn-primary" type="submit" value="{{trans('app.Add')}}"/>
+        </div>
 
     </form>
 

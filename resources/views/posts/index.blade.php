@@ -34,7 +34,6 @@
 	        <td>{{ ++$i }}</td>
 	        <td>{{ $post->title }}</td>
             <td>{{ $post->user->name }} </td>
-
 	        <td>{{ $post->blog }}</td>
 	        <td>
                 <form action="{{ route('posts.destroy',$post->id) }}" method="POST">

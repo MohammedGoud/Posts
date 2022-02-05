@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddPostRequest;
+use App\Http\Requests\EditPostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,6 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::with('user')->get();
-        
-
         return view('posts.index', compact('posts'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -77,9 +76,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(EditPostRequest $request, Post $post)
     {
-        $post->update($request->all());
+        $post->update($request->validated());
 
         return redirect()->route('posts.index')
             ->with('success', 'Post updated successfully');

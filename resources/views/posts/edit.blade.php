@@ -29,25 +29,30 @@
     <form action="{{ route('posts.update',$post->id) }}" method="POST">
     	@csrf
         @method('PUT')
+        <input type="hidden" value="{{ $post->id }}" name="id" >
+        <div class="form-group ">
+        <label  for="title"> {{trans("app.Title")}} </label>
+        <input type="text" class="form-control" name="title" value="{{ $post->title }}" placeholder="{{trans("app.Title")}}" required="required">
+            @if ($errors->has('title'))
+                <span class="text-danger text-left">{{ $errors->first('title') }}</span>
+            @endif
+        </div>
 
 
-         <div class="row">
-		    <div class="col-xs-12 col-sm-12 col-md-12">
-		        <div class="form-group">
-		            <strong>{{trans('app.Title')}}:</strong>
-		            <input type="text" name="title" value="{{ $post->title }}" class="form-control" placeholder="Name">
-		        </div>
-		    </div>
-		    <div class="col-xs-12 col-sm-12 col-md-12">
-		        <div class="form-group">
-		            <strong>{{trans('app.Blog')}}:</strong>
-		            <textarea class="form-control" style="height:150px" name="blog" placeholder="blog">{{ $post->blog }}</textarea>
-		        </div>
-		    </div>
-		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-		      <button type="submit" class="btn btn-primary">{{trans('app.Edit')}}</button>
-		    </div>
-		</div>
+        <div class="form-group ">
+        <label  for="title">{{trans("app.Blog")}} </label>
+            <textarea class="form-control" style="height:150px" name="blog" placeholder="blog">{{ $post->blog }}</textarea>
+            @if ($errors->has('blog'))
+                <span class="text-danger text-left">{{ $errors->first('blog') }}</span>
+            @endif
+        </div>
+
+
+        
+
+        <div class="footer">
+            <input class="btn btn-primary" type="submit" value="{{trans('app.Edit')}}"/>
+        </div>
 
 
     </form>
