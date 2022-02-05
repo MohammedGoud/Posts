@@ -39,7 +39,7 @@
         </div>
 
 
-        <div class="form-group ">
+        <div class="form-group">
         <label  for="title">{{trans("app.Blog")}} </label>
             <textarea class="form-control" style="height:150px" name="blog" placeholder="blog">{{ $post->blog }}</textarea>
             @if ($errors->has('blog'))
@@ -50,7 +50,7 @@
 
         
 
-        <div class="footer">
+        <div class="footer pull-right">
             <input class="btn btn-primary" type="submit" value="{{trans('app.Edit')}}"/>
         </div>
 

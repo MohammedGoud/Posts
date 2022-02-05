@@ -46,7 +46,7 @@
             @endif
         </div>
         
-        <div class="footer">
+        <div class="footer pull-right">
             <input class="btn btn-primary" type="submit" value="{{trans('app.Add')}}"/>
         </div>
 

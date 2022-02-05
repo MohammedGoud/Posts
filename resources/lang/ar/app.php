@@ -20,9 +20,9 @@ return [
     'Username'              => 'اسم المستخدم ',
     'Login'                 => ' دخول',
     'Register'              => 'تسجيل دخول ',
-    'email'                 => 'Email',
-    'name'                  => 'Name',
-    'password_confirmation' => 'Password Cconfirmation',
-    'password'              => 'Password',
+    'email'                 => 'البريد الالكترونى',
+    'name'                  => 'الاسم',
+    'password_confirmation' => 'تأكيد كلمة السر',
+    'password'              => 'كلمة السر',
 
 ];
