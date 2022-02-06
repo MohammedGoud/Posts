@@ -33,7 +33,7 @@
 	    <tr>
 	        <td>{{ ++$i }}</td>
 	        <td>{{ $post->title }}</td>
-            <td>{{ $post->user->name }} </td>
+            <td> <a href="{{url('posts?user_id='.$post->user_id)}}">{{ $post->user->name }} </a> </td>
 	        <td>{{ $post->blog }}</td>
 	        <td>
                 <form action="{{ route('posts.destroy',$post->id) }}" method="POST">

@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,22 +25,33 @@ Route::get('locale/{locale}', function ($locale) {
 /**
  * Register Routes
  */
-Route::get('/register', 'App\Http\Controllers\RegisterController@show')->name('register');
-Route::post('/register', 'App\Http\Controllers\RegisterController@handle')->name('register_handle');
+Route::get('/register',  [RegisterController::class, 'show'])->name('register');
+Route::post('/register', [RegisterController::class, 'handle'])->name('register_handle');
 
 /**
  * Login Routes
  */
-Route::get('/login', 'App\Http\Controllers\LoginController@show')->name('login');
-Route::post('/login', 'App\Http\Controllers\LoginController@handle')->name('login_handle');
+Route::get('/login',  [LoginController::class, 'show'])->name('login');
+Route::post('/login', [LoginController::class, 'handle'])->name('login_handle');
 
+/**
+ * Password Routes
+ */
+Route::get('forgot', [LoginController::class, 'forgot'])->name('forgot');
+Route::post('forgot', [LoginController::class, 'handle_forget_password'])->name('handle_forget_password');
+Route::get('reset-password/{token}', [LoginController::class, 'reset'])->name('reset');
+Route::post('reset-password', [LoginController::class, 'handle_reset_password'])->name('handle_reset_password');
+
+/**
+ * Authenticated Routes
+ */
 Route::group(['middleware' => ['auth']], function () {
     /**
      * Posts Routes
      */
-    Route::resource('posts', 'App\Http\Controllers\PostController');
+    Route::resource('posts', PostController::class);
     /**
      * Logout Routes
      */
-    Route::get('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout_handle');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout_handle');
 });

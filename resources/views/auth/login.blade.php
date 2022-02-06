@@ -30,7 +30,9 @@
 
         <div class="footer">
                    <input class="btn btn-primary" type="submit" value="{{trans('app.Login')}}"/>
-               </div>
+                   <a  href="{{url('forgot')}}"   class="btn btn-primary"  >{{trans('app.forgot_password')}}</a>
+
+        </div>
 
     </form>
     </div>

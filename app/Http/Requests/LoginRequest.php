@@ -26,7 +26,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email'    => 'required|email:rfc,dns',
-            'password' => 'required|min:8',
+            'password' => 'required|min:5',
         ];
     }
 
@@ -38,15 +38,14 @@ class LoginRequest extends FormRequest
      */
     public function getCredentials()
     {
-        // The form field for providing username or password
-        // have name of "username", however, in order to support
-        // logging users in with both (username and email)
+        // The form field for providing email or password
+        // have name of "email", however, in order to support
         // we have to check if user has entered one or another
-        $username = $this->get('email');
+        $email = $this->get('email');
 
-        if ($this->isEmail($username)) {
+        if ($this->isEmail($email)) {
             return [
-                'email'    => $username,
+                'email'    => $email,
                 'password' => $this->get('password'),
             ];
         }

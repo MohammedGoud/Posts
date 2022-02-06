@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ForgotPasswordtRequest;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ResetPasswordtRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -76,26 +78,22 @@ class LoginController extends Controller
     }
 
     /**
-     * Write code on Method
+     * view forgot password form
      *
      * @return response()
      */
-    public function showForgetPasswordForm()
+    public function forgot()
     {
-        return view('auth.forgetPassword');
+        return view('auth.forgot');
     }
 
     /**
-     * Write code on Method
+     * handling reset password
      *
      * @return response()
      */
-    public function submitForgetPasswordForm(Request $request)
+    public function handle_forget_password(ForgotPasswordtRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users',
-        ]);
-
         $token = Str::random(64);
 
         DB::table('password_resets')->insert([
@@ -116,9 +114,9 @@ class LoginController extends Controller
      *
      * @return response()
      */
-    public function showResetPasswordForm($token)
+    public function reset($token)
     {
-        return view('auth.forgetPasswordLink', ['token' => $token]);
+        return view('auth.reset', ['token' => $token]);
     }
 
     /**
@@ -126,26 +124,17 @@ class LoginController extends Controller
      *
      * @return response()
      */
-    public function submitResetPasswordForm(Request $request)
+    public function handle_reset_password(ResetPasswordtRequest $request)
     {
-        $request->validate([
-            'email'                 => 'required|email|exists:users',
-            'password'              => 'required|string|min:6|confirmed',
-            'password_confirmation' => 'required',
-        ]);
-
         $updatePassword = DB::table('password_resets')
-            ->where([
-                'email' => $request->email,
-                'token' => $request->token,
-            ])
-            ->first();
+            ->where('token', $request->token, )
+             ->first();
 
         if (!$updatePassword) {
             return back()->withInput()->with('error', 'Invalid token!');
         }
 
-        $user = User::where('email', $request->email)
+        User::where('email', $request->email)
             ->update(['password' => bcrypt($request->password)]);
 
         DB::table('password_resets')->where(['email' => $request->email])->delete();

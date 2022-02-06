@@ -14,9 +14,13 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::with('user')->get();
+        if($request->has('user_id')){
+            $posts = Post::with('user')->where('user_id',$request->get('user_id'))->get();
+        }
+        
         return view('posts.index', compact('posts'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
