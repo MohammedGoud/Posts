@@ -127,17 +127,17 @@ class LoginController extends Controller
     public function handle_reset_password(ResetPasswordtRequest $request)
     {
         $updatePassword = DB::table('password_resets')
-            ->where('token', $request->token, )
+            ->where('token', $request->token)
              ->first();
 
         if (!$updatePassword) {
             return back()->withInput()->with('error', 'Invalid token!');
         }
 
-        User::where('email', $request->email)
+        User::where('email', $updatePassword->email)
             ->update(['password' => bcrypt($request->password)]);
 
-        DB::table('password_resets')->where(['email' => $request->email])->delete();
+        DB::table('password_resets')->where(['email' => $updatePassword->email])->delete();
 
         return redirect('/login')->with('message', 'Your password has been changed!');
     }
